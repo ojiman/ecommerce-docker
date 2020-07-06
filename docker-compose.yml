@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+    db:
+        build: .
+        restart: always
+        container_name: postgresql
+        ports:
+            - '5432:5432'
+        environment: 
+            POSTGRES_DB: ecdb
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+            PGPASSWORD: admin
+            LANG: ja_JP.UTF-8
+        volumes:
+            - $PWD/docker/db/init:/docker-entrypoint-initdb.d
+
+    pgadmin4:
+        image: dpage/pgadmin4:4
+        restart: always
+        container_name: pgadmin4
+        ports:
+            - 80:80
+        volumes:
+            - $PWD/pgadmin:/var/lib/pgadmin/storage
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=admin@example.com
+            - PGADMIN_DEFAULT_PASSWORD=admin
+        hostname: pgadmin4
