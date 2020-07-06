@@ -1,5 +1,6 @@
 create table items
-( item_id integer
+( item_id integer primary key
+, shop_id integer
 , item_name text
 , item_price integer
 );
